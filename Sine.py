@@ -53,11 +53,15 @@ def sine(value, tol):
     if (tol == None):
         tol = .000001
     
+    #- Check if value passed is zero
+    if (value == 0):
+        return 0
+    
     #- Calculate the sin of the value using a series expansion
     
     while(abs((sum-sumPrev)/sum) > tol):
         sumPrev = sum
-        sum = sum + ((-1)**n)*(x**(2 * n + 1)/math.factorial(2 * n + 1))   
+        sum = sum + ((-1)**n)*(value**(2 * n + 1)/math.factorial(2 * n + 1))   
         n = n + 1
 
     #- Returns sine of the value
