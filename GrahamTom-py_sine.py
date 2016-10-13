@@ -15,9 +15,9 @@
 #Notes:
 # - Written for Python 2.7.12
 #===============================================================================
-import numpy
 
-def sine(value, tol = 1e-8):
+
+def sine(value, tol):
     """Calculate the sine of a decimal number
     
     Method Arguments:
@@ -46,7 +46,12 @@ def sine(value, tol = 1e-8):
     
     n = 1
     sumPrev = 0.0
-    sum = float(value)
+    sum = value
+    
+    #- If no tolerance specified, initializes the tol variable
+    
+    if (tol == None):
+        tol = .000001
     
     #- Check if value passed is zero
     if (value == 0):
@@ -62,9 +67,4 @@ def sine(value, tol = 1e-8):
     #- Returns sine of the value
 
     return sum
-
-if (__name__ == "__main__"):
-    print 'Numpy module: %.20f' % numpy.sin(3.4)
-    print 'This module: %.20f' % sine(3.4)
-    
 
