@@ -10,7 +10,7 @@
 #
 #
 #Modification History
-# - Created 10/12/2016 by Tom Graham for CSS 455, University of Washington, 
+# - Created 10/27/2016 by Tom Graham for CSS 455, University of Washington, 
 #   Bothell
 #
 #Notes:
@@ -18,7 +18,6 @@
 #===============================================================================
 
 import numpy as np
-import numpy.ma as ma
 import matplotlib.pyplot as plt
 
 def main():
