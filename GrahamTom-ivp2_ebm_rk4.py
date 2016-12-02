@@ -18,7 +18,8 @@
 #===============================================================================
 
 #import statements
-import matplotlib.pyplot as plt
+
+import numpy as np
 
 def A(T, T_ice = 273, T_no_ice = 293):
     """Linear function to determine the value of A(T)
@@ -41,26 +42,28 @@ def engBalModel(T):
 
     return (S * (1-A(T)) - epsilon_tau_a * sigma * T ** 4) / pC
 
-def Euler(df, yinit, h, nsteps):
-    """Euler's method function
+def integrate(F,y,h, numIter):
+    """Runge-Kutta method taken from Numerical Methods in Engineering,
+       Jaan Kiusalaas
     """
-    y = [yinit]
-    for i in range(nsteps):
-        x = i*h
-        ynew = y[i-1] + df(y[i-1]) * h
-        y.append(ynew)
-        
-    return y
+    def run_kut4(F,y,h):
+        # Computes increment of y from Eqs. (7.10)
+        K0 = h*F(y)
+        K1 = h*F(y + K0/2.0)
+        K2 = h*F(y + K1/2.0)
+        K3 = h*F(y + K2)
+        return (K0 + 2.0*K1 + 2.0*K2 + K3)/6.0
+    Y = []
+    Y.append(y)
+    for i in range(numIter):
+        y = y + run_kut4(F,y,h)
+        Y.append(y)
+    return np.array(Y)
     
 def main():
     """Main function
     """
-    temps = (Euler(engBalModel,286, 86400, 4000))
-    plt.plot(temps)
-    plt.xlabel('time')
-    plt.ylabel('Temperature in Degrees K')
-    plt.title('Temperature approaching equilibrium')
-    plt.show()
+    print (integrate(engBalModel,274, 86400, 3000))
     
 if (__name__ == "__main__"):
     main()
